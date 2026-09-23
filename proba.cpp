@@ -1,6 +1,6 @@
 #include <iostream>
 
 int main() {
-    k = 8;
+    k = 6;
     return 0;
 }
