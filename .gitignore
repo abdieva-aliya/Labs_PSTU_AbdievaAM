@@ -1,19 +1,14 @@
 # Результаты сборки
-main.exe
-*.exe
-*.ilk
-*.obj
-*.pdb
+hello
+hello.exe
 *.o
+*.obj
 *.out
-
-# Каталоги C
+# Каталоги CMake
 build/
 cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
-
-# Настройки редактора
-.vscode/
-ipch/
-*.browse.VC.db
+# Настройки редактора, которые обычно являются локальными
+.vscode/ipch/
+.vscode/.browse.VC.db
