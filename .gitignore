@@ -12,3 +12,10 @@ CMakeCache.txt
 # Настройки редактора, которые обычно являются локальными
 .vscode/ipch/
 .vscode/.browse.VC.db
+.vscode
+build/
+cmake-build-*/
+*.exe
+*.obj
+*.pdb
+*.ilk
