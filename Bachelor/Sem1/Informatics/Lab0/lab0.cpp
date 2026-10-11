@@ -1,6 +1,5 @@
 #include <iostream>
-
 int main() {
-    k = 6;
+    std::cout << "Hello, C++!" << std::endl;
     return 0;
 }
