@@ -17,6 +17,13 @@ int main() {
     float num_f = sq_f - (a_sq_f + ab_f); 
     float den_f = pow(b_f, 2.0f); // b^2
     float res_f = num_f / den_f;
+
+    cout << "a + b = " << sum_f << endl;
+    cout << "(a + b)^2 = " << sq_f << endl;
+    cout << "a^2 = " << a_sq_f << endl;
+    cout << "2ab = " << ab_f << endl;
+    cout << "Числитель = " << num_f << endl;
+    cout << "Знаменатель = " << den_f << endl;
     cout << "Результат float: " << res_f << endl; //вывод
 
     // решение для double
@@ -29,6 +36,13 @@ int main() {
     double num_d = sq_d - (a_sq_d + ab_d);
     double den_d = pow(b_d, 2.0);
     double res_d = num_d / den_d;
+
+    cout << "a + b = " << sum_d << endl;
+    cout << "(a + b)^2 = " << sq_d << endl;
+    cout << "a^2 = " << a_sq_d << endl;
+    cout << "2ab = " << ab_d << endl;
+    cout << "Числитель = " << num_d << endl;
+    cout << "Знаменатель = " << den_d << endl;
     cout << "Результат double: " << res_d << endl; //вывод
 
     return 0; //для успешного завершения
