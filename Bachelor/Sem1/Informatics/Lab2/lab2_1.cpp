@@ -8,7 +8,7 @@ int main()
 
     int sum = 0;
 
-    for (int i = 3; i < 200; sum += 3)
+    for (int i = 3; i < 200; i += 3)
     {
         sum += i;
     }
