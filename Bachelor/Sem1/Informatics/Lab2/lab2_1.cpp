@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    setlocale(LC_ALL, ".65001");
+    setlocale(LC_ALL, "Russian");
 
     int sum = 0;
 
