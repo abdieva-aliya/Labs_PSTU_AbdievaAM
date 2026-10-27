@@ -4,7 +4,6 @@ using namespace std;
 
 int main()
 {
-
     setlocale(LC_ALL, ".65001");
 
     int sum = 0;
