@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <clocale>
-#include <stdlib.h>
 
 using namespace std;
 
