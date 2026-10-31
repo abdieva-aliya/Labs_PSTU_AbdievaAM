@@ -1,3 +1,5 @@
+// Проверка последовательности на возрастание
+
 #include <iostream>
 #include <clocale>
 
