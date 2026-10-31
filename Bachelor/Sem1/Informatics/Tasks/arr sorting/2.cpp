@@ -20,12 +20,6 @@ int main()
         cin >> a[i];
     }
 
-    cout << "Исходный массив: ";
-    for (int i = 1; i <= n; i++) {
-        cout << a[i] << " ";
-    }
-    cout << endl;
-
     for (int i = 1; i < n; i++){
         int min = i; // Предполагаем, мин.элемент - это текущий
         
