@@ -20,12 +20,6 @@ int main()
         cin >> a[i];
     }
 
-    cout << "Исходный массив: ";
-    for (int i = 0; i < n; i++){
-        cout << a[i] << " ";
-    }
-    cout << endl;
-
     for (int i = 0; i < n; i++){
         for (int j = n - 1; j > i; j--){ 
             if (a[j - 1] > a[j]){
