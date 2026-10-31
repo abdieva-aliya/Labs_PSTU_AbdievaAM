@@ -2,7 +2,10 @@
 #include <clocale>
 using namespace std;
 
-int main() {
+int main() 
+{
+    setlocale(LC_ALL,".65001");
+
     int n;
     int a[100];
 
