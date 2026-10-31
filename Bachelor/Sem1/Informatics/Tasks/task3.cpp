@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <clocale>
+#include <iomanip>
 using namespace std;
 
 int main()
@@ -37,7 +38,7 @@ int main()
 
     int sum1 = 0, sum2 = 0;
 
-    cout << "Матрица:";
+    cout << "Матрица:" << endl;
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 3; j++) {
             cout << setw(max_len + 1) << a[i][j];
