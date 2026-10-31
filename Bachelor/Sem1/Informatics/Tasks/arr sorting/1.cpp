@@ -20,12 +20,6 @@ int main()
         cin >> a[i];
     }
 
-    cout << "Исходный массив: ";
-    for (int i = 0; i < n; i++) {
-        cout << a[i] << " ";
-    }
-    cout << endl;
-
     for (int i = 1; i < n; i++) {
         int y = a[i]; // запоминаем текущий элемент в "y"
         bool f = false; // место для "y" еще не найдено
