@@ -11,10 +11,10 @@ int main()
         return 0;
     }
 
-    for (int r = 0; r < (n + 1) / 2; r++) {
-        for (int s = 0; s < (n + 1) / 2 - 1 - r; s++)
+    for (int i = 0; i < (n + 1) / 2; i++) {
+        for (int j = 0; j < (n + 1) / 2 - 1 - i; j++)
             cout << " ";
-        for (int s = 0; s < 2 * r + 1; s++)
+        for (int j = 0; j < 2 * i + 1; j++)
             cout << "*";
         cout << endl;
     }
