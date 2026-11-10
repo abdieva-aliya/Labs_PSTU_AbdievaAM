@@ -10,7 +10,7 @@ int main()
     int& r = *p;
     p = &b;
     *q += *p;
-    *p = r - 3;  // ВОПРОС!
+    *p = r - 3;
     q = p;
     *q += r;
     cout << a << " " << b << " " << r;
