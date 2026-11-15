@@ -4,10 +4,11 @@ using namespace std;
 
 void han(int n, int a, int c, int b)
 {
-    if (n > 0)
+    if (n > 0){
         han(n-1, a, b, c);
         cout << a << " -> " << c << endl;
         han(n-1, b, c, a);
+    }
     return;
 }
 int main()
