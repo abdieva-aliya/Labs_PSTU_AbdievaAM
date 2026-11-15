@@ -26,13 +26,9 @@ int main() {
         else if (str[right] == ' ' || str[right] == '.') {
             right--;
         }
-        // Если оба символа — буквы, сравниваем их
-        else {
-            char c1 = tolower(str[left]);
-            char c2 = tolower(str[right]);  // Заглавные в строчные
-
+        else{
             // Если буквы разные — это не палиндром
-            if (c1 != c2) {
+            if (str[left] != str[right]) {
                 f = false;
             }
 
