@@ -9,7 +9,6 @@ void han(int n, int a, int c, int b)
         cout << a << " -> " << c << endl;
         han(n-1, b, c, a);
     }
-    return;
 }
 int main()
 {
