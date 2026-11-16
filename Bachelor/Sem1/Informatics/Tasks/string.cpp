@@ -1,29 +1,28 @@
 #include <iostream>
 #include <string>
-#include <windows.h>
+#include <clocale>
 using namespace std;
 
 int main() {
-    SetConsoleCP(65001);
-    SetConsoleOutputCP(65001);
+    setlocale(LC_ALL, "Russian");
+    
+    wstring word;
+    wcout << L"Введите слово: ";
+    wcin >> word;
 
-    string word;
-    cout << "Введите слово: ";
-    cin >> word;
-
+    // Проверяем длину (считаются именно буквы, а не байты)
     if (word.length() > 5) {
-        // Заменяем первый байт на 'X', а второй удаляем.
-        word.replace(0, 2, "X"); 
+        word[0] = L'X'; // Меняем первую букву
     } else {
-        // Последняя буква: заменяем последние 2 байта на "X"
-        word.replace(word.length() - 2, 2, "X");
+        word[word.length() - 1] = L'X'; // Меняем последнюю букву
     }
 
-    cout << "Результат: ";
+    // Выводим справа налево
+    wcout << L"Результат: ";
     for (int i = word.length() - 1; i >= 0; i--) {
-        cout << word[i];
+        wcout << word[i];
     }
-    cout << endl;
+    wcout << endl;
 
     return 0;
 }
