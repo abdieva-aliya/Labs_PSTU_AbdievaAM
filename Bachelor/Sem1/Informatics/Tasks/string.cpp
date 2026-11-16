@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
+#include <clocale>
 using namespace std;
 
 int main() {
+    setlocale(LC_ALL, ".65001");
+    
     string word;
 
     cout << "Введите слово: ";
