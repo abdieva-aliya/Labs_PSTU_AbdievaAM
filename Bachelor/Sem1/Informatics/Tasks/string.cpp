@@ -4,26 +4,25 @@
 using namespace std;
 
 int main() {
-    setlocale(LC_ALL, ".65001");
+    setlocale(LC_ALL, "");
     
-    string word;
+    wstring word;
+    wcout << L"Введите слово: ";
+    wcin >> word;
 
-    cout << "Введите слово: ";
-    cin >> word;
-
-    // Проверяем длину
+    // Проверяем длину (считаются именно буквы, а не байты)
     if (word.length() > 5) {
-        word[0] = 'X'; // Меняем первую букву
+        word[0] = L'X'; // Меняем первую букву
     } else {
-        word[word.length() - 1] = 'X'; // Меняем последнюю букву
+        word[word.length() - 1] = L'X'; // Меняем последнюю букву
     }
 
     // Выводим справа налево
-    cout << "Результат: ";
+    wcout << L"Результат: ";
     for (int i = word.length() - 1; i >= 0; i--) {
-        cout << word[i];
+        wcout << word[i];
     }
-    cout << endl;
+    wcout << endl;
 
     return 0;
 }
