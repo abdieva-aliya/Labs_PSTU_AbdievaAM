@@ -1,10 +1,11 @@
 #include <iostream>
 #include <cstring>
+#include <cctype>
 #include <clocale>
 using namespace std;
 
 int main() {
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, ".65001");
 
     char str[255];
     cout << "Введите строку (в конце точка): ";
@@ -12,9 +13,8 @@ int main() {
 
     int left = 0;                // Начало строки
     int right = strlen(str) - 1; // Конец строки
-    bool f = true;   // Флажок: изначально думаем, что это палиндром
+    bool f = true;               // Флажок палиндрома
 
-    // Цикл работает, пока индексы не встретились и пока это палиндром
     while (left < right && f == true) {
         
         // Если слева пробел или точка — сдвигаем левый индекс вправо
@@ -25,9 +25,12 @@ int main() {
         else if (str[right] == ' ' || str[right] == '.') {
             right--;
         }
-        else{
-            // Если буквы разные — это не палиндром
-            if (str[left] != str[right]) {
+        else {
+            // Приводим английские буквы к нижнему регистру и сравниваем
+            char c1 = tolower(str[left]);
+            char c2 = tolower(str[right]);
+
+            if (c1 != c2) {
                 f = false;
             }
 
@@ -38,9 +41,9 @@ int main() {
     }
 
     if (f) {
-        cout << "Строка является палиндромом." << endl;
+        cout << "Палиндром!" << endl;
     } else {
-        cout << "Строка не является палиндромом." << endl;
+        cout << "Не палиндром!" << endl;
     }
     return 0;
 }
