@@ -2,12 +2,12 @@
 #include <clocale>
 using namespace std;
 
-int tselye(int a, int b) {
+int sum(int a, int b) {
     return a + b;
 }
 
 // a и b - части первого числа, c и d - части второго
-void complex(int a, int b, int c, int d) {
+void sum(int a, int b, int c, int d) {
     cout << (a + c) << " + " << (b + d) << "i" << endl;
 }
 
@@ -17,7 +17,7 @@ int main() {
     int x, y;
     cout << "Введите два целых числа: ";
     cin >> x >> y;
-    cout << "Сумма целых: " << tselye(x, y) << endl;
+    cout << "Сумма целых: " << sum(x, y) << endl;
 
     int a, b, c, d;
     cout << "Введите действительную и мнимую часть первого комплексного числа: ";
@@ -26,7 +26,7 @@ int main() {
     cin >> c >> d;
     
     cout << "Сумма комплексных чисел: ";
-    complex(a, b, c, d);
+    sum(a, b, c, d);
     
     return 0;
 }
