@@ -31,6 +31,7 @@ int main() {
     }
 
     cout << "Исходная матрица (" << x << "x" << y << "):";
+    cout << endl;
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++) {
             cout << a[i][j] << " ";
@@ -39,6 +40,7 @@ int main() {
     }
 
     cout << "Транспонированная матрица (" << y << "x" << x << "):";
+    cout << endl;
     for (int i = 0; i < y; i++) {
         for (int j = 0; j < x; j++) {
             cout << t[i][j] << " ";
