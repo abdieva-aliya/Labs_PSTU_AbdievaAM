@@ -145,16 +145,16 @@ int main() {
     FILE *f = fopen(file, "wb"); 
     fclose(f);
 
-    cout << "1. Добавление записей" << endl;
+    // Добавление записей
     add(file); 
     add(file);
     print_file(file); // Выводим то, что получилось
 
-    cout << "2. Удаление 1-го элемента" << endl;
+    // Удаление 1-го элемента
     delete_number(file, 1); // Удаляем первую запись
     print_file(file);
 
-    cout << "3. Добавление после фамилии" << endl;
+    // Добавление после фамилии
     add_after_fio(file, "Петров Юрий Савельевич"); // Ищем ... и вставляем после него
     print_file(file);
 
