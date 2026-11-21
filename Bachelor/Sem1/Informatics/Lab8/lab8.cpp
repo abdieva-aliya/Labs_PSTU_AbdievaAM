@@ -22,8 +22,8 @@ void add(const char* filename) {
 
     Abiturient a;
     cout << "ФИО: ";
-    cin.ignore(); // Очищаем буфер от символа Enter, оставшегося после предыдущего ввода
-    cin.getline(a.fio, 100); // Считываем строку с пробелами (ФИО)
+    cin.ignore(); // Очищаем буфер от Enter, оставшегося после предыдущего ввода
+    cin.getline(a.fio, 100); // Считываем строку с пробелами
     cout << "Год рождения: ";
     cin >> a.year;
     cout << "3 оценки: ";
@@ -59,7 +59,7 @@ void print_file(const char* filename) {
 }
 
 // 3. Функция удаления по номеру
-void delete_by_number(const char* filename, int num) {
+void delete_number(const char* filename, int num) {
     FILE *f = fopen(filename, "rb");
     if (f == NULL) return;
 
@@ -100,14 +100,14 @@ void add_after_fio(const char* filename, const char* target) {
     fclose(f);
 
     // Ищем индекс элемента с нужной фамилией
-    int pos = -1;
-    for (int i = 0; i < count && pos == -1; i++) {
+    int k = -1;
+    for (int i = 0; i < count && k == -1; i++) {
         if (strcmp(arr[i].fio, target) == 0) {
-            pos = i; // Запоминаем позицию
+            k = i; // Запоминаем позицию
         }
     }
 
-    if (pos == -1) {
+    if (k == -1) {
         cout << "Фамилия не найдена!" << endl;
         return;
     }
@@ -128,7 +128,7 @@ void add_after_fio(const char* filename, const char* target) {
     for (int i = 0; i < count; i++) {
         fwrite(&arr[i], sizeof(Abiturient), 1, f); // Пишем текущий элемент
         
-        if (i == pos) {
+        if (i == k) {
             // Если это тот самый элемент, после которого нужно вставить, сразу же пишем нового абитуриента
             fwrite(&new_a, sizeof(Abiturient), 1, f); 
         }
@@ -151,7 +151,7 @@ int main() {
     print_file(file); // Выводим то, что получилось
 
     cout << "2. Удаление 1-го элемента" << endl;
-    delete_by_number(file, 1); // Удаляем первую запись
+    delete_number(file, 1); // Удаляем первую запись
     print_file(file);
 
     cout << "3. Добавление после фамилии" << endl;
