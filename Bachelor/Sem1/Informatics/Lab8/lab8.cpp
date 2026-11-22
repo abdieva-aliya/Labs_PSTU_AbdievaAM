@@ -11,10 +11,9 @@ struct Abiturient {
     double sredniy;
 };
 
-// 1. Функция добавления новой записи в конец файла
+// Функция добавления новой записи в конец файла
 void add(const char* filename) {
-    // Открываем файл в режиме "ab" (append binary) - добавление в конец бинарного файла
-    FILE *f = fopen(filename, "ab"); 
+    FILE *f = fopen(filename, "ab"); // "ab" - добавить в конец бинарного файла
     if (f == NULL) {
         cout << "Ошибка открытия файла!" << endl;
         return;
@@ -22,24 +21,22 @@ void add(const char* filename) {
 
     Abiturient a;
     cout << "ФИО: ";
-    cin.ignore(); // Очищаем буфер от Enter, оставшегося после предыдущего ввода
-    cin.getline(a.fio, 100); // Считываем строку с пробелами
+    cin.ignore();
+    cin.getline(a.fio, 100);
     cout << "Год рождения: ";
     cin >> a.year;
     cout << "3 оценки: ";
     cin >> a.marks[0] >> a.marks[1] >> a.marks[2];
     a.sredniy = (a.marks[0] + a.marks[1] + a.marks[2]) / 3.0;
 
-    // Записываем одну структуру в файл (адрес структуры, размер, кол-во, файл)
-    fwrite(&a, sizeof(Abiturient), 1, f); 
-    fclose(f); // Закрываем файл
+    fwrite(&a, sizeof(Abiturient), 1, f); // Записываем структуру в файл
+    fclose(f);
     cout << "Запись добавлена." << endl;
 }
 
-// 2. Функция печати всего файла
+// Функция печати всего файла
 void print_file(const char* filename) {
-    // Открываем файл в режиме "rb" (read binary) - чтение бинарного файла
-    FILE *f = fopen(filename, "rb"); 
+    FILE *f = fopen(filename, "rb"); // "rb" - читать бинарный файл
     if (f == NULL) {
         cout << "Файл не найден!" << endl;
         return;
@@ -58,26 +55,23 @@ void print_file(const char* filename) {
     fclose(f);
 }
 
-// 3. Функция удаления по номеру
+// Функция удаления по номеру
 void delete_number(const char* filename, int num) {
     FILE *f = fopen(filename, "rb");
     if (f == NULL) return;
 
-    Abiturient arr[100]; // Временный массив для хранения всех записей
-    int count = 0; // Количество прочитанных записей
+    Abiturient arr[100]; // Массив для временного хранения всех записей
+    int count = 0; // Сколько прочитали
     
-    // Читаем весь файл в массив
     while (fread(&arr[count], sizeof(Abiturient), 1, f) == 1) {
         count++;
     }
     fclose(f);
 
-    // Открываем файл заново в режиме "wb" (write binary) - полностью очищает файл
+    // Перезаписываем файл заново (wb очищает старый файл)
     f = fopen(filename, "wb"); 
-    
-    // Записываем обратно все элементы, кроме удаляемого
     for (int i = 0; i < count; i++) {
-        if (i != num - 1) {
+        if (i != num - 1) { // Пропускаем удаляемый элемент
             fwrite(&arr[i], sizeof(Abiturient), 1, f);
         }
     }
@@ -85,7 +79,7 @@ void delete_number(const char* filename, int num) {
     cout << "Элемент удален." << endl;
 }
 
-// 4. Функция добавления после заданной фамилии
+// Функция добавления после заданной фамилии
 void add_after_fio(const char* filename, const char* target) {
     FILE *f = fopen(filename, "rb");
     if (f == NULL) return;
@@ -93,17 +87,25 @@ void add_after_fio(const char* filename, const char* target) {
     Abiturient arr[100];
     int count = 0;
     
-    // Снова читаем весь файл в массив
+    // Читаем файл в массив
     while (fread(&arr[count], sizeof(Abiturient), 1, f) == 1) {
         count++;
     }
     fclose(f);
 
-    // Ищем индекс элемента с нужной фамилией
+    // Ищем нужную фамилию
     int k = -1;
     for (int i = 0; i < count && k == -1; i++) {
-        if (strcmp(arr[i].fio, target) == 0) {
-            k = i; // Запоминаем позицию
+        // Копируем ФИО, чтобы не испортить оригинал
+        char temp[100];
+        strcpy(temp, arr[i].fio);
+        
+        // Отрезаем фамилию (до первого пробела)
+        char* surname = strtok(temp, " ");
+        
+        // Сравниваем только фамилию
+        if (surname != NULL && strcmp(surname, target) == 0) {
+            k = i; // Запоминаем индекс
         }
     }
 
@@ -112,7 +114,6 @@ void add_after_fio(const char* filename, const char* target) {
         return;
     }
 
-    // Ввод данных нового абитуриента
     Abiturient new_a;
     cout << "Новое ФИО: ";
     cin.ignore();
@@ -123,13 +124,11 @@ void add_after_fio(const char* filename, const char* target) {
     cin >> new_a.marks[0] >> new_a.marks[1] >> new_a.marks[2];
     new_a.sredniy = (new_a.marks[0] + new_a.marks[1] + new_a.marks[2]) / 3.0;
 
-    // Перезаписываем файл
+    // Перезаписываем файл со вставкой
     f = fopen(filename, "wb");
     for (int i = 0; i < count; i++) {
-        fwrite(&arr[i], sizeof(Abiturient), 1, f); // Пишем текущий элемент
-        
-        if (i == k) {
-            // Если это тот самый элемент, после которого нужно вставить, сразу же пишем нового абитуриента
+        fwrite(&arr[i], sizeof(Abiturient), 1, f);
+        if (i == k) { // Вставляем сразу после найденной фамилии
             fwrite(&new_a, sizeof(Abiturient), 1, f); 
         }
     }
@@ -145,17 +144,21 @@ int main() {
     FILE *f = fopen(file, "wb"); 
     fclose(f);
 
-    // Добавление записей
-    add(file); 
     add(file);
-    print_file(file); // Выводим то, что получилось
-
-    // Удаление 1-го элемента
-    delete_number(file, 1); // Удаляем первую запись
+    add(file);
     print_file(file);
 
-    // Добавление после фамилии
-    add_after_fio(file, "Петров Юрий Савельевич"); // Ищем ... и вставляем после него
+    int num;
+    cout << "Введите номер элемента для удаления: ";
+    cin >> num;
+    delete_number(file, num);
+    print_file(file);
+
+    char target[100];
+    cout << "Введите фамилию, после которой добавить: ";
+    cin.ignore(); // Очищаем буфер после ввода номера
+    cin.getline(target, 100);
+    add_after_fio(file, target);
     print_file(file);
 
     return 0;
