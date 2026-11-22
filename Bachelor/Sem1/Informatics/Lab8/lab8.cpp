@@ -156,7 +156,7 @@ int main() {
 
     char target[100];
     cout << "Введите фамилию, после которой добавить: ";
-    cin.ignore(); // Очищаем буфер после ввода номера
+    cin.ignore();
     cin.getline(target, 100);
     add_after_fio(file, target);
     print_file(file);
