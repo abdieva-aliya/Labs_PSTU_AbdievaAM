@@ -1,74 +1,71 @@
 #include <iostream>
-#include <windows.h>
+#include <string>
 #include <clocale>
 using namespace std;
 
-int stolb[3][10];   // диски на каждом стержне
-int disk[3];       // сколько дисков на каждом стержне
-int N;
+int rod[3][10]; // диски на каждом стержне (снизу вверх)
+int count[3]; // сколько дисков на каждом стержне
+int N; // всего колец
 
-// Нарисовать башню
-void risovat()
+// Нарисовать текущее состояние башни
+void draw()
 {
-    system("cls");
+    // "очистка" экрана: много пустых строк
+    for (int i = 0; i < 30; i++) cout << "\n";
 
-    for (int ryad = N; ryad >= 1; ryad--) {
+    int W = 2 * N + 1; // ширина одного стержня в символах
+
+    // Ряды сверху вниз: row = N-1 (верх) ... 0 (низ)
+    for (int row = N - 1; row >= 0; row--) {
         for (int s = 0; s < 3; s++) {
-            if (disk[s] >= ryad) {
-                int nomer = ryad - 1;
-                int d = stolb[s][nomer];
-                int shirina = 2 * d - 1;
-                int probelov = (2 * N + 1 - shirina) / 2;
-                for (int k = 0; k < probelov; k++) cout << " ";
-                for (int k = 0; k < shirina; k++) cout << "*";
-                for (int k = 0; k < probelov; k++) cout << " ";
+            if (row < count[s]) {
+                // в этом ряду есть диск
+                int d = rod[s][row]; // размер диска
+                int w = 2 * d - 1; // ширина в звёздочках
+                int pad = (W - w) / 2; // отступ слева/справа
+                cout << string(pad, ' ') << string(w, '*') << string(pad, ' ');
             } else {
-                for (int k = 0; k < N; k++) cout << " ";
-                cout << "|";
-                for (int k = 0; k < N; k++) cout << " ";
+                // диска нет — рисуем только стержень
+                cout << string(N, ' ') << "|" << string(N, ' ');
             }
-            cout << "   ";
+            cout << "   ";   // отступ между стержнями
         }
-        cout << endl;
+        cout << "\n";
     }
 
-    for (int s = 0; s < 3; s++) {
-        for (int k = 0; k < 2 * N + 1; k++) cout << "-";
-        cout << "   ";
-    }
-    cout << endl;
+    // Основание под каждым стержнем
+    for (int s = 0; s < 3; s++)
+        cout << string(W, '-') << "   ";
+    cout << "\n";
 
-    for (int s = 0; s < 3; s++) {
-        for (int k = 0; k < N; k++) cout << " ";
-        cout << s + 1;
-        for (int k = 0; k < N; k++) cout << " ";
-        cout << "   ";
-    }
-    cout << endl;
+    // Номера стержней: 1 2 3
+    for (int s = 0; s < 3; s++)
+        cout << string(N, ' ') << s + 1 << string(N, ' ') << "   ";
+    cout << "\n";
 }
 
-// Переложить верхний диск со стержня a на стержень c
-void perelozhit(int a, int c)
+// Переложить верхний диск со стержня a на стержень c (a, c = 1..3)
+void moveDisk(int a, int c)
 {
-    int from = a - 1;
+    int from = a - 1; // перевод в индексы 0..2
     int to = c - 1;
 
-    int d = stolb[from][disk[from] - 1];   // берём верхний
-    disk[from]--;                          // убрали
-    stolb[to][disk[to]] = d;               // положили
-    disk[to]++;
+    int d = rod[from][count[from] - 1]; // берём верхний диск
+    count[from]--; // снимаем его
+    rod[to][count[to]] = d; // кладём сверху на другой
+    count[to]++;
 
-    risovat();
-    Sleep(500);
+    draw(); // показать результат
+    cout << "Enter..."; // пауза
+    cin.get();
 }
 
-// Рекурсия — как в оригинале
 void han(int n, int a, int c, int b)
 {
     if (n > 0) {
-        han(n - 1, a, b, c);
-        perelozhit(a, c);
-        han(n - 1, b, c, a);
+        han(n - 1, a, b, c); // n-1 дисков: с a на b
+        moveDisk(a, c); // самый большой: с a на c
+        han(n - 1, b, c, a); // n-1 дисков: с b на c
     }
 }
 
@@ -78,20 +75,17 @@ int main()
 
     cout << "Введите количество колец: ";
     cin >> N;
+    cin.ignore(); // убрать '\n' после ввода числа
 
-    // кладём все диски на первый стержень: снизу большой, сверху маленький
-    for (int i = 0; i < N; i++) {
-        stolb[0][i] = N - i;
-    }
-    disk[0] = N;
-    disk[1] = 0;
-    disk[2] = 0;
+    // Кладём все диски на первый стержень: снизу большой, сверху маленький
+    for (int i = 0; i < N; i++)
+        rod[0][i] = N - i;
+    count[0] = N; // остальные стержни уже пусты (0)
 
-    risovat();
-    Sleep(800);
+    draw();
+    cout << "Enter...";
+    cin.get();
 
     han(N, 1, 3, 2);
-
-    cout << "Готово!" << endl;
     return 0;
 }
