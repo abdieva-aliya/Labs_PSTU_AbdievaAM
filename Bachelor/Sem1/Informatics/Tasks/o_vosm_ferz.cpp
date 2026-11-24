@@ -5,7 +5,6 @@ using namespace std;
 
 int pos[8]; // Номер столбца для ферзя в строке i
 int count_res = 0; // Счетчик решений
-int first_pos[8]; // Массив для сохранения первого найденного решения
 
 // Функция проверки: бьет ли новый ферзь уже стоящих
 bool safe(int row, int col) {
@@ -24,10 +23,17 @@ void solve(int row) {
     if (row == 8) {
         count_res++;
         
-        // Сохраняем первое решение
-        if (count_res == 1) {
+        // Выводим только первые 5 решений
+        if (count_res <= 5) {
+            cout << "Решение №" << count_res << ":\n";
+            cout << "  1 2 3 4 5 6 7 8" << endl; // Номера столбцов
             for (int i = 0; i < 8; i++) {
-                first_pos[i] = pos[i];
+                cout << i + 1 << " "; // Номер строки
+                for (int j = 0; j < 8; j++) {
+                    if (pos[i] == j) cout << "Q ";
+                    else cout << ". ";
+                }
+                cout << "\n";
             }
         }
         return;
@@ -47,18 +53,7 @@ int main() {
     
     solve(0); // Запускаем алгоритм с 0-й строки
     
-    cout << "Всего найдено решений: " << count_res << "\n\n";
+    cout << "Всего найдено решений: " << count_res << "\n";
     
-    // Визуализация первого решения
-    cout << "  1 2 3 4 5 6 7 8"; // Номера столбцов
-    for (int i = 0; i < 8; i++) {
-        cout << i + 1 << " "; // Номер строки
-        for (int j = 0; j < 8; j++) {
-            if (first_pos[i] == j) cout << "Q ";
-            else cout << ". ";
-        }
-        cout << "\n";
-    }
-
     return 0;
 }
