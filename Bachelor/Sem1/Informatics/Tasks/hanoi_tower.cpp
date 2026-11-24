@@ -3,7 +3,7 @@
 #include <clocale>
 using namespace std;
 
-int rod[3][10]; // диски на каждом стержне (снизу вверх)
+int stolb[3][10]; // диски на каждом стержне (снизу вверх)
 int cnt[3]; // сколько дисков на каждом стержне
 int N; // всего колец
 
@@ -11,19 +11,20 @@ int N; // всего колец
 void draw()
 {
     // "очистка" экрана: много пустых строк
-    for (int i = 0; i < 30; i++) cout << "\n";
-
-    int W = 2 * N + 1; // ширина одного стержня в символах
+    for (int i = 0; i < 30; i++) {
+        cout << "\n";
+    }
+    int shirina = 2 * N + 1;
 
     // Ряды сверху вниз: row = N-1 (верх) ... 0 (низ)
     for (int row = N - 1; row >= 0; row--) {
         for (int s = 0; s < 3; s++) {
             if (row < cnt[s]) {
                 // в этом ряду есть диск
-                int d = rod[s][row]; // размер диска
-                int w = 2 * d - 1; // ширина в звёздочках
-                int pad = (W - w) / 2; // отступ слева/справа
-                cout << string(pad, ' ') << string(w, '*') << string(pad, ' ');
+                int d = stolb[s][row]; // размер диска
+                int shir = 2 * d - 1; // ширина в звёздочках
+                int pad = (shirina - shir) / 2; // отступ слева/справа
+                cout << string(pad, ' ') << string(shir, '*') << string(pad, ' ');
             } else {
                 // диска нет — рисуем только стержень
                 cout << string(N, ' ') << "|" << string(N, ' ');
@@ -35,7 +36,7 @@ void draw()
 
     // Основание под каждым стержнем
     for (int s = 0; s < 3; s++)
-        cout << string(W, '-') << "   ";
+        cout << string(shirina, '-') << "   ";
     cout << "\n";
 
     // Номера стержней: 1 2 3
@@ -50,9 +51,9 @@ void moveDisk(int a, int c)
     int from = a - 1; // перевод в индексы 0..2
     int to = c - 1;
 
-    int d = rod[from][cnt[from] - 1]; // берём верхний диск
+    int d = stolb[from][cnt[from] - 1]; // берём верхний диск
     cnt[from]--; // снимаем его
-    rod[to][cnt[to]] = d; // кладём сверху на другой
+    stolb[to][cnt[to]] = d; // кладём сверху на другой
     cnt[to]++;
 
     draw(); // показать результат
@@ -79,7 +80,7 @@ int main()
 
     // Кладём все диски на первый стержень: снизу большой, сверху маленький
     for (int i = 0; i < N; i++)
-        rod[0][i] = N - i;
+        stolb[0][i] = N - i;
     cnt[0] = N; // остальные стержни уже пусты (0)
 
     draw();
