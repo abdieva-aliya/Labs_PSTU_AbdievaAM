@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+    int n;
+    cout << "Введите размер массива: ";
+    cin >> n;
+
+    int* a = new int[n];
+    cout << "Введите " << n << " элементов: ";
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    int add;
+    cout << "Введите элемент для добавления: ";
+    cin >> add;
+
+    int* newArr = new int[n + 1];
+    for (int i = 0; i < n; i++) {
+        newArr[i] = a[i];
+    }
+    newArr[n] = add;
+
+    delete[] a;
+    a = newArr;
+    n++;
+
+    cout << "После добавления: ";
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+
+    // --- УДАЛЕНИЕ элемента по индексу ---
+    int index;
+    cout << "Введите индекс для удаления (0.." << n - 1 << "): ";
+    cin >> index;
+
+    if (index < 0 || index >= n) {
+        cout << "Неверный индекс!" << endl;
+    } else {
+        int* newArr2 = new int[n - 1];
+        int j = 0;
+        for (int i = 0; i < n; i++) {
+            if (i != index) {
+                newArr2[j++] = a[i];
+            }
+        }
+
+        delete[] a;
+        a = newArr2;
+        n--;
+
+        cout << "После удаления: ";
+        for (int i = 0; i < n; i++) cout << a[i] << " ";
+        cout << endl;
+    }
+
+    delete[] a;
+    return 0;
+}
